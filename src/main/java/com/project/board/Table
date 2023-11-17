@@ -1,0 +1,16 @@
+create table MEMBER(
+    member_email varchar(25),
+    member_password varchar(25),
+    member_name varchar(25),
+    member_phone varchar(25),
+    member_nickname varchar(25),
+    member_address varchar(255)
+);
+
+create table SELLBOARD(
+    sellboard_num int,
+    sellboard_title varchar(255),
+    sellboard_content varchar(255),
+    sellboard_price int,
+    sellboard_photo varchar(255)
+);
