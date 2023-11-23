@@ -15,15 +15,15 @@
 
 <body>
     <div class="boardPage">
-        <form action="/board/list">
-            작성자 : <input class="writer" type="text" th:text="{}"></br>
+        <form>
+            작성자 : <input class="writer" type="text"></br>
             제목 : <input class="title" placeholder="제목"></br>
             카테고리 : <input class="category"></br>
             가격 : <input class="price"></br>
             사진 : <input class="image"></br>
             <textarea class="content" placeholder="게시글작성"></textarea></br>
             <button type="submit">등록</button>
-            <button href="#">취소</button>
+            <a href="list">취소</a>
         </form>
     </div>
 </body>
