@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class BoardController {
 
-    @GetMapping("/")
-    public String index(){
+    @GetMapping("/board/write")
+    public String boardWrite(){
 
-        return "index";
+        return "boardWrite";
     }
 
     @GetMapping("/board/list")
     public String boardList(){
 
-        return "boardlist";
+        return "boardList";
     }
 }
