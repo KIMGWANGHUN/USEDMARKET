@@ -1,4 +1,4 @@
-//User Table
+-- //User Table
 CREATE TABLE User (
 	Email	varchar(25)	NOT NULL,
 	Password	varchar(20)	NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE User (
 );
 
 
-//Board Table
+-- //Board Table
 CREATE TABLE Board (
 	b_num	int	NOT NULL PRIMARY KEY,
 	b_title	varchar(50)	NOT NULL,
