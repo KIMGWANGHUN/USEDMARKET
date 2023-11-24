@@ -15,13 +15,13 @@
 
 <body>
     <div class="boardPage">
-        <form>
-            작성자 : <input class="writer" type="text"></br>
-            제목 : <input class="title" placeholder="제목"></br>
-            카테고리 : <input class="category"></br>
-            가격 : <input class="price"></br>
-            사진 : <input class="image"></br>
-            <textarea class="content" placeholder="게시글작성"></textarea></br>
+        <form action="/board/list" method="POST">
+            <input class="writer" type="text" placeholder="작성자"></br>
+            <input class="title" placeholder="제목"></br>
+            <input class="category" placeholder="카테고리"></br>
+            <input class="price" placeholder="가격"></br>
+            <input class="image" placeholder="사진 업로드"></br>
+            <textarea class="content" placeholder="게시글 작성"></textarea></br>
             <button type="submit">등록</button>
             <a href="list">취소</a>
         </form>

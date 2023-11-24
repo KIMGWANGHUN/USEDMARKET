@@ -40,8 +40,13 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td><td>옷</td><td>콜라500ml 가져가실분~</td><td>500원</td><td>2023-11-20</td><td>24</td>
+                <tr th:each="{}">
+                    <td th:text="${board.bId}">1</td>
+                    <td th:text="${board.bCategory}">옷</td>
+                    <td th:text="${board.bTitle}">콜라500ml 가져가실분~</td>
+                    <td th:text="${board.bPrice}">500원</td>
+                    <td th:text="${board.bDate}">2023-11-20</td>
+                    <td th:text="${board.bViews}">24</td>
                 </tr>
             </tbody>
         </table>
