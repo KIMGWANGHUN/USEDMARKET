@@ -1,7 +1,6 @@
 package com.project.board.entity;
 
 import lombok.Data;
-import net.bytebuddy.dynamic.loading.InjectionClassLoader;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,4 +22,19 @@ public class Board {
     private String bAddress;
     private Date bDate;
     private int bViews;
+
+    public Board(){
+        super();
+    }
+
+    public Board(String bTitle, String bCategory, String bContent, String bPrice, String bImage, String bAddress, Date bDate, int bViews) {
+        this.bTitle = bTitle;
+        this.bCategory = bCategory;
+        this.bContent = bContent;
+        this.bPrice = bPrice;
+        this.bImage = bImage;
+        this.bAddress = bAddress;
+        this.bDate = bDate;
+        this.bViews = bViews;
+    }
 }
