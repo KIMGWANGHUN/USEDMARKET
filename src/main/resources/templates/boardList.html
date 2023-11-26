@@ -12,7 +12,7 @@
         text-align : center;
     }
     .list {
-        width : 500px;
+        width : 800px;
         margin : 0 auto;
         margin-top : 20px;
     }
@@ -24,6 +24,10 @@
         border : 1px solid;
         width : 400px;
         text-align : center;
+    }
+    .writeButton {
+        float : right;
+        margin-top : 4px;
     }
 </style>
 
@@ -40,16 +44,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="{}">
+                <tr th:each="board : ${list}">
                     <td th:text="${board.bId}">1</td>
-                    <td th:text="${board.bCategory}">옷</td>
-                    <td th:text="${board.bTitle}">콜라500ml 가져가실분~</td>
-                    <td th:text="${board.bPrice}">500원</td>
-                    <td th:text="${board.bDate}">2023-11-20</td>
-                    <td th:text="${board.bViews}">24</td>
+                    <td th:text="${board.bCategory}"></td>
+                    <td>
+                        <a th:text="${board.bTitle}" th:href="@{/board/view(id=${board.bId})}"></a>
+                    </td>
+                    <td th:text="${board.bPrice}"></td>
+                    <td th:text="${board.bDate}"></td>
+                    <td th:text="${board.bViews}"></td>
                 </tr>
             </tbody>
         </table>
+
+        <button class="writeButton" th:onclick="|location.href='@{/board/write}'|">글작성</button>
     </div>
 </body>
 </html>

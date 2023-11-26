@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 페이지</title>
+</head>
+
+<style>
+    div {
+        margin : 0 auto;
+        width : 800px;
+    }
+</style>
+
+<body>
+    <div>
+        <h1 th:text="${board.bTitle}"></h1>
+        <hr>
+        <p th:text="${board.bContent}"></p>
+        <a th:href="@{/board/delete(id=${board.bId})}">글삭제</a>
+        <a th:href="@{/board/modify/{id}(id=${board.bId})}">글수정</a>
+    </div>
+
+</body>
+</html>
