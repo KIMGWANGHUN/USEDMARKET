@@ -1,0 +1,18 @@
+# test 설정
+#Database연결
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: user
+    password:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+logging:
+  level:
+    org.hibernate:
+      sql: debug
+      type: trace
