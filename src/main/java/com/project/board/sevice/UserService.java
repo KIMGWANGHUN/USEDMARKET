@@ -17,11 +17,13 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
+    //회원가입
     public Member saveMember(Member member) {
         validateDuplicateMember(member);
         return userRepository.save(member);
     }
 
+    //회원가입시 가입된 이메일 체크
     private void validateDuplicateMember(Member member) {
         Member findMember = userRepository.findByEmail(member.getEmail());
         if(findMember != null) {
@@ -29,16 +31,20 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException{
-        Member member =userRepository.findByEmail(email);
-        if (member==null){
-            throw new UsernameNotFoundException(email);//<-로그인할 유저의 이메일을 파리미터로 전달 받는다.
-        }
-        return User.builder()//,<- 추가
-                .username(member.getEmail())
-                .password(member.getPassword())
-                .build();
 
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = userRepository.findByEmail(email);
+        if (member == null) {
+            throw new UsernameNotFoundException(email + "에 해당하는 사용자를 찾을 수 없습니다.");
+        }
+
+        return User.builder()
+                .username(member.getEmail())
+                .password(member.getPassword()) // 패스워드 인코딩이 필요하면 추가해야 합니다.
+                .roles("USER") // 사용자의 권한을 설정하려면 추가해야 합니다.
+                .build();
     }
+
+    //로그인 처리 과정
 }

@@ -6,28 +6,27 @@
 </head>
 
 <body>
-<form method="post" action="/member/login">
-    <span>이메일</span><input type="text" name="email">
-    <span>비밀번호</span><input type="password" name="password">
-    <p th:if="${loginErrorMsg}" th:text="${loginErrorMsg}"></p>
+<form method="post" action="/login">
+    <li sec:authorize="isAnonymous()" style="list-style:none;">
+        <span>이메일</span><input type="text" name="email">
+    </li>
+    <li sec:authorize="isAnonymous()" style="list-style:none;">
+        <span>비밀번호</span><input type="password" name="password">
+    </li>
     <li sec:authorize="isAnonymous()" style="list-style:none;">
     <button type="submit">로그인</button>
     </li>
-    <li sec:authorize="isAuthenticated()">
-        <div th:each="list : ${myInfo}">
-            <a th:href="@{/mypageView(email =${list.email})}">
-                <span th:text="${list.email}"></span>
-            </a>
-        </div>
+    <li sec:authorize="isAuthenticated()" style="list-style:none;">
+        <p>안녕하세요<a th:href="@{'/mypageView(' + myInfo.email + ')'}"></a></p>
     </li>
-    <li sec:authorize="isAuthenticated()">
-        <button type="submit">로그아웃</button>
+    <li sec:authorize="isAuthenticated()" style="list-style:none">
+        <a th:href="logout">로그아웃</a>
     </li>
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 </form>
 <a th:href="@{/UserJoinPage}">회원가입</a>
-<li sec:authorize="isAuthenticated()">
-    <a th:href="@{/boardList}">판매</a>
-</li>
+
+<li sec:authorize="isAuthenticated()" style="list-style:none">
+    <a th:href="@{/boardList}">판매</a></li>
 </body>
 </html>
