@@ -4,7 +4,9 @@ import com.project.board.dto.UserDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.catalina.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Table(name ="USERDATA")
-public class Member  {
+public class Member   {
     @Id //PK 지정
     @Column(unique = true) //제약조건 추가
     private String email;
@@ -34,4 +36,6 @@ public class Member  {
         member.setAddress(uDto.getAddress());
         return member;
     }
+
+
 }

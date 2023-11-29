@@ -4,6 +4,9 @@ import com.project.board.dto.UserDto;
 import com.project.board.entity.Member;
 import com.project.board.sevice.UserService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.validator.constraints.Mod10Check;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +36,7 @@ public class UserController {
 
 
 
+    //회원가입
     @PostMapping(value="save")
     public String save(@Valid UserDto uDto, BindingResult bindingResult, Model model) {
 
@@ -51,11 +55,6 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping(value ="/login/error")
-    public String loginError(Model model) {
-        model.addAttribute("loginError","아이디 또는 비밀번호를 확인해주세요");
-        return "redirect:/";
-    }
 
     //판매글 페이지로 이동
     @GetMapping("/boardList")

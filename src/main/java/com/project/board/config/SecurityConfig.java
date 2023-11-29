@@ -10,50 +10,44 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    UserService userService;
-
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.formLogin()
-                .loginPage("/index")// 회원가입 추가
-                .defaultSuccessUrl("/")//
-                .usernameParameter("email")//
-                .failureUrl("/login/error")//
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/security-login/info").authenticated()
+                .anyRequest().permitAll()
                 .and()
-                .logout()//
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                .logoutSuccessUrl("/")//
-        ;
-        //페이지 권한 추가
-        http.authorizeRequests()
-                .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                .mvcMatchers("/", "/userJoinPage").permitAll()
-        ;
-        http.exceptionHandling()
-                .authenticationEntryPoint
-                        (new CustomAuthenticationEntryPoint())
-        ;
+                .formLogin()
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .loginPage("/")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
+                .failureUrl("/security-login/login")
+                .and()
+                .logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder (){
         return new BCryptPasswordEncoder();
     }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth)throws Exception{
-        auth.userDetailsService(userService)
-                .passwordEncoder(passwordEncoder());
-    }
-
-
 }
+

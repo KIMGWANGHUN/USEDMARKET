@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<Member, String> { // value값 자리에는 pk값의 타입을 입력
     Member findByEmail(String email);
+
 }
