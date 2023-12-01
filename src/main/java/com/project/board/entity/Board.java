@@ -17,21 +17,21 @@ public class Board {
     private String bCategory;
     private String bContent;
     private String bPrice;
-    private String bImage;
     private String bAddress;
     private String bDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     private int bViews;
+    private String fileName;
+    private String filePath;
 
     public Board(){
         super();
     }
 
-    public Board(String bTitle, String bCategory, String bContent, String bPrice, String bImage, String bAddress, String bDate, int bViews) {
+    public Board(String bTitle, String bCategory, String bContent, String bPrice, String bAddress, String bDate, int bViews) {
         this.bTitle = bTitle;
         this.bCategory = bCategory;
         this.bContent = bContent;
         this.bPrice = bPrice;
-        this.bImage = bImage;
         this.bAddress = bAddress;
         this.bDate = bDate;
         this.bViews = bViews;

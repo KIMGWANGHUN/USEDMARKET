@@ -6,13 +6,19 @@ import com.project.board.repository.BoardRepository;
 import com.project.board.sevice.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.swing.plaf.multi.MultiLabelUI;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -30,17 +36,29 @@ public class BoardController {
 
     //게시물 등록
     @PostMapping("/board/writeEnd")
-    public String boardWriteEnd(Board board, Model model){
-        boardService.write(board);
+    public String boardWriteEnd(Board board, Model model, MultipartFile file) throws Exception{
+        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
+        boardService.write(board, file);
         model.addAttribute("message", "작성완료!!");
         model.addAttribute("listPage", "/board/list");
         return "boardMessage";
     }
 
     //게시판 리스트
-    @GetMapping("board/list")
-    public String boardList(Model model){
-        model.addAttribute("list", boardService.boardList());
+    @GetMapping("/board/list")
+    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable){
+
+        Page<Board> list = boardService.boardList(pageable);
+
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+
         return "boardList";
     }
 
@@ -73,11 +91,11 @@ public class BoardController {
         boardTemp.setBCategory(board.getBCategory());
         boardTemp.setBTitle(board.getBTitle());
         boardTemp.setBPrice(board.getBPrice());
-        boardTemp.setBImage(board.getBImage());
         boardTemp.setBContent(board.getBContent());
 
         boardService.write(boardTemp);
 
         return "redirect:/board/list";
     }
+
 }

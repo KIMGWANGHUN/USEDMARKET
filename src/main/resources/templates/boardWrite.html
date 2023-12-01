@@ -22,13 +22,16 @@
         margin-top : 5px;
         height : 500px;
     }
+    button {
+        margin-top : 5px;
+    }
 
 </style>
 
 <body>
     <H1>판매글 작성</H1>
     <div class="writePage">
-        <form action="/board/writeEnd" method="POST">
+        <form action="/board/writeEnd" method="POST" enctype="multipart/form-data">
             <input name="bWriter"></br>
             <select name="bCategory">
                 <option>팝니다</option>
@@ -36,8 +39,8 @@
             </select>
             <input name="bTitle" placeholder="제목">
             <input name="bPrice" placeholder="가격"></br>
-            <input name="bImage" placeholder="사진 업로드"></br>
             <textarea name="bContent" placeholder="게시글 작성"></textarea></br>
+            <input name="file" type="file"></br>
             <button type="submit">등록</button>
             <button type="button" th:onclick="|location.href='@{/board/list}'|">취소</button>
         </form>
