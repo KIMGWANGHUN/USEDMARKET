@@ -29,6 +29,13 @@
         float : right;
         margin-top : 4px;
     }
+    strong:hover {
+        background : black;
+        color : #FFFFFF;
+    }
+    .pageDiv {
+        text-align : center;
+    }
 </style>
 
 <body>
@@ -56,8 +63,16 @@
                 </tr>
             </tbody>
         </table>
-
         <button class="writeButton" th:onclick="|location.href='@{/board/write}'|">글작성</button>
+
+        </br>
+        <div class="pageDiv">
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page -1})}" th:text="${page}"></a>
+                <strong th:if="${page == nowPage}" th:text="${page}"></strong>
+            </th:block>
+        </div>
+
     </div>
 </body>
 </html>

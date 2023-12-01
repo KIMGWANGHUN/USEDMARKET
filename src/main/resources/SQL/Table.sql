@@ -15,9 +15,10 @@ CREATE TABLE Board (
 	b_title	varchar(50)	NOT NULL,
 	b_category	varchar(20)	NOT NULL,
 	b_price	varchar(50)	NOT NULL,
-	b_image	varchar(255)	NOT NULL,
 	b_content	varchar(255)	NOT NULL,
 	b_address	varchar(255)	NOT NULL,
 	b_date	date	NOT NULL,
 	b_views	int	NOT NULL
+	filename varchar(150),
+	filepath varchar(300),
 );

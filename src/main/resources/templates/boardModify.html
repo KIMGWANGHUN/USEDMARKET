@@ -22,6 +22,9 @@
         margin-top : 5px;
         height : 500px;
     }
+    button {
+        margin-top : 5px;
+    }
 
 </style>
 
@@ -34,10 +37,10 @@
                 <option>팝니다</option>
                 <option>삽니다</option>
             </select>
-            <input name="bTitle" th:value="${board.bTitle}">
-            <input name="bPrice" th:value="${board.bPrice}"></br>
-            <input name="bImage" th:value="${board.bImage}"></br>
-            <textarea name="bContent" th:text="${board.bContent}"></textarea></br>
+            <input name="bTitle" th:value="${board.bTitle}" placeholder="제목">
+            <input name="bPrice" th:value="${board.bPrice}" placeholder="가격"></br>
+            <textarea name="bContent" th:text="${board.bContent}" placeholder="게시글 작성"></textarea></br>
+            <input name="file" type="file"></br>
             <button type="submit">등록</button>
             <button th:onclick="|location.href='@{/board/list}'|">취소</button>
         </form>
