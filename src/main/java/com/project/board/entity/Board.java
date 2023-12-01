@@ -3,10 +3,7 @@ package com.project.board.entity;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 

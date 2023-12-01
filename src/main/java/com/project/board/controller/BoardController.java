@@ -1,20 +1,26 @@
 package com.project.board.controller;
 
 import com.project.board.entity.Board;
+import com.project.board.entity.Member;
+import com.project.board.repository.BoardRepository;
 import com.project.board.sevice.BoardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class BoardController {
     @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
 
     //게시글 작성 페이지
     @GetMapping("/board/write")     //localhost:8090/board/write
@@ -24,9 +30,11 @@ public class BoardController {
 
     //게시물 등록
     @PostMapping("/board/writeEnd")
-    public String boardWriteEnd(Board board){
+    public String boardWriteEnd(Board board, Model model){
         boardService.write(board);
-        return "redirect:/board/list";
+        model.addAttribute("message", "작성완료!!");
+        model.addAttribute("listPage", "/board/list");
+        return "boardMessage";
     }
 
     //게시판 리스트
@@ -38,6 +46,7 @@ public class BoardController {
 
     //게시물 페이지
     @GetMapping("/board/view")  // localhost:8090/board/view?id=1
+    @Transactional
     public String boardView(Model model, Integer id){
         model.addAttribute("board", boardService.boardView(id));
         return "boardView";

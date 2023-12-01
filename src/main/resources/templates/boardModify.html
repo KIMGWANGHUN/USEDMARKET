@@ -26,10 +26,10 @@
 </style>
 
 <body>
-    <H1>판매글 작성</H1>
+    <H1>판매글 수정</H1>
     <div class="writePage">
         <form th:action="@{/board/update/{id}(id = ${board.bId})}" method="POST">
-            <input name="bWriter" type="text" placeholder="작성자"></br>
+            <input name="bWriter" th:value="${board.bTitle}"></br>
             <select name="bCategory">
                 <option>팝니다</option>
                 <option>삽니다</option>
