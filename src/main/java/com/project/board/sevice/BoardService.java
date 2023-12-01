@@ -1,10 +1,13 @@
 package com.project.board.sevice;
 
 import com.project.board.entity.Board;
+import com.project.board.entity.Member;
 import com.project.board.repository.BoardRepository;
+import com.project.board.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -25,19 +28,14 @@ public class BoardService {
 
     //게시글 페이지
     public Board boardView(Integer id){
-        return boardRepository.findById(id).get();
+        Board board = boardRepository.findById(id).get();
+        board.setBViews(board.getBViews() +1);
+        return board;
     }
 
     //게시글 삭제
     public void boardDelete(Integer id){
         boardRepository.deleteById(id);
     }
-
-    //게시글 수정
-    public void boardModify(){
-
-    }
-
-
 
 }

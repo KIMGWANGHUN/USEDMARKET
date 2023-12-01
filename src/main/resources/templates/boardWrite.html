@@ -29,7 +29,7 @@
     <H1>판매글 작성</H1>
     <div class="writePage">
         <form action="/board/writeEnd" method="POST">
-            <input name="bWriter" type="text" placeholder="작성자"></br>
+            <input name="bWriter"></br>
             <select name="bCategory">
                 <option>팝니다</option>
                 <option>삽니다</option>
@@ -39,7 +39,7 @@
             <input name="bImage" placeholder="사진 업로드"></br>
             <textarea name="bContent" placeholder="게시글 작성"></textarea></br>
             <button type="submit">등록</button>
-            <button th:onclick="|location.href='@{/board/list}'|">취소</button>
+            <button type="button" th:onclick="|location.href='@{/board/list}'|">취소</button>
         </form>
     </div>
 </body>
