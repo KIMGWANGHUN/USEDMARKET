@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-aaaa
+    <td th:text="${member.email}"></td>
+    <td th:text="${member.name}"></td>
+    <td th:text="${member.phone}"></td>
+    <td th:text="${member.nickname}"></td>
+    <td th:text="${member.address}"></td>
 </body>
 </html>

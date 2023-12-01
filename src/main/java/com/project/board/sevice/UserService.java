@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
+    private Member member;
     private final UserRepository userRepository;
 
     //회원가입
@@ -32,6 +33,7 @@ public class UserService implements UserDetailsService {
     }
 
 
+    //스프링 시큐리티에서 사용자 인증을 하기위해 사용되는 메서드
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = userRepository.findByEmail(email);
@@ -40,11 +42,11 @@ public class UserService implements UserDetailsService {
         }
 
         return User.builder()
-                .username(member.getEmail())
-                .password(member.getPassword()) // 패스워드 인코딩이 필요하면 추가해야 합니다.
-                .roles("USER") // 사용자의 권한을 설정하려면 추가해야 합니다.
+                .username(member.getNickname())
+                .password(member.getPassword())
+                .roles("USER")
                 .build();
     }
 
-    //로그인 처리 과정
+
 }
