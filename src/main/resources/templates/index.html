@@ -14,19 +14,22 @@
         <span>비밀번호</span><input type="password" name="password">
     </li>
     <li sec:authorize="isAnonymous()" style="list-style:none;">
-    <button type="submit">로그인</button>
-    </li>
-    <li sec:authorize="isAuthenticated()" style="list-style:none;">
-        <p>안녕하세요<a th:href="@{'/mypageView(' + myInfo.email + ')'}"></a></p>
+        <button type="submit">로그인</button>
     </li>
     <li sec:authorize="isAuthenticated()" style="list-style:none">
         <a th:href="logout">로그아웃</a>
     </li>
     <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 </form>
-<a th:href="@{/UserJoinPage}">회원가입</a>
+<li sec:authorize="isAnonymous()" style="list-style:none;">
+    <a th:href="@{/UserJoinPage}">회원가입</a>
+</li>
+<li sec:authorize="isAuthenticated()" style="list-style:none;">
+    <p>안녕하세요<a th:href="@{/myPageView}"><span sec:authentication="name"></span>님</a></p>
+</li>
 
 <li sec:authorize="isAuthenticated()" style="list-style:none">
-    <a th:href="@{/boardList}">판매</a></li>
+    <a th:href="@{/boardList}">판매</a>
+</li>
 </body>
 </html>
