@@ -37,7 +37,7 @@ public class BoardController {
     //게시물 등록
     @PostMapping("/board/writeEnd")
     public String boardWriteEnd(Board board, Model model, MultipartFile file) throws Exception{
-        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
+
         boardService.write(board, file);
         model.addAttribute("message", "작성완료!!");
         model.addAttribute("listPage", "/board/list");
@@ -47,6 +47,8 @@ public class BoardController {
     //게시판 리스트
     @GetMapping("/board/list")
     public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable){
+        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
+        boardService.write(exBoard);
 
         Page<Board> list = boardService.boardList(pageable);
 
