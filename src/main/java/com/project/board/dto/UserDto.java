@@ -15,4 +15,3 @@ public class UserDto {
     private String address;
 
 }
-

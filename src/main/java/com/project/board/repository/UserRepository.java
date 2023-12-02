@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<Member, String> { // value
 
     //이메일값 조회
     Member findByEmail(String email);
-    
+
     //유저의 닉네임값 조회
     Optional<Member> findByNickname(String nickname);
 
