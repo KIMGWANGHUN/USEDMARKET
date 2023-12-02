@@ -40,7 +40,12 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    //게시판 리스트
+    //게시판 리스트(페이징처리X)
+/*    public List<Board> boardList(){
+        return boardRepository.findAll();
+    }*/
+
+    //게시판 리스트(페이징처리O)
     public Page<Board> boardList(Pageable pageable){
 
         return boardRepository.findAll(pageable);
