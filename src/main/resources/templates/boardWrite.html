@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 <head>
     <meta charset="UTF-8">
     <title>글작성</title>
@@ -32,7 +34,7 @@
     <H1>판매글 작성</H1>
     <div class="writePage">
         <form action="/board/writeEnd" method="POST" enctype="multipart/form-data">
-            <input name="bWriter"></br>
+            <input name="nickname" th:value="${#authentication.name}"></br>
             <select name="bCategory">
                 <option>팝니다</option>
                 <option>삽니다</option>

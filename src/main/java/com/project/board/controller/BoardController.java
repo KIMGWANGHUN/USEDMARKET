@@ -4,6 +4,7 @@ import com.project.board.entity.Board;
 import com.project.board.entity.Member;
 import com.project.board.repository.BoardRepository;
 import com.project.board.sevice.BoardService;
+import com.project.board.sevice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,7 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private final BoardService boardService;
+    private final UserService userService;
 
     //게시글 작성 페이지
     @GetMapping("/board/write")     //localhost:8090/board/write
