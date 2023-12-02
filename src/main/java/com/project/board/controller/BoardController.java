@@ -30,13 +30,13 @@ public class BoardController {
 
     //게시글 작성 페이지
     @GetMapping("/board/write")     //localhost:8090/board/write
-    public String boardWriterForm(){
+    public String boardWriterForm() {
         return "boardWrite";
     }
 
     //게시물 등록
     @PostMapping("/board/writeEnd")
-    public String boardWriteEnd(Board board, Model model, MultipartFile file) throws Exception{
+    public String boardWriteEnd(Board board, Model model, MultipartFile file) throws Exception {
 
         boardService.write(board, file);
         model.addAttribute("message", "작성완료!!");
@@ -44,9 +44,17 @@ public class BoardController {
         return "boardMessage";
     }
 
+/*
+    @GetMapping("/board/list")
+    public String boardList(Model model){
+        model.addAttribute("list", boardService.boardList());
+        return "boardList";
+    }
+*/
+
     //게시판 리스트
     @GetMapping("/board/list")
-    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable){
+    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable) {
         Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
         boardService.write(exBoard);
 
@@ -67,28 +75,28 @@ public class BoardController {
     //게시물 페이지
     @GetMapping("/board/view")  // localhost:8090/board/view?id=1
     @Transactional
-    public String boardView(Model model, Integer id){
+    public String boardView(Model model, Integer id) {
         model.addAttribute("board", boardService.boardView(id));
         return "boardView";
     }
 
     //게시글 삭제
     @GetMapping("/board/delete")
-    public String boardDelete(Integer id){
+    public String boardDelete(Integer id) {
         boardService.boardDelete(id);
         return "redirect:/board/list";
     }
 
     //게시글 수정 페이지
     @GetMapping("/board/modify/{id}")
-    public String boardModify(@PathVariable("id") Integer id, Model model){
+    public String boardModify(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("board", boardService.boardView(id));
         return "boardModify";
     }
 
     //게시글 수정
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board){
+    public String boardUpdate(@PathVariable("id") Integer id, Board board) {
         Board boardTemp = boardService.boardView(id);
         boardTemp.setBCategory(board.getBCategory());
         boardTemp.setBTitle(board.getBTitle());
