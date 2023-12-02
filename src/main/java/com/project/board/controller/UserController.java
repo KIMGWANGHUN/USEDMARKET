@@ -71,10 +71,9 @@ public class UserController {
     }
 
     //마이페이지
-    @GetMapping("/mypage")
-    public String mypage(@AuthenticationPrincipal UserService userService, Model model) {
-        model.addAttribute("member", userService);
-        return "mypage";
+    @GetMapping("/mypageView")
+    public String mypage() {
+        return "mypageView";
     }
 
     //판매글 페이지로 이동
