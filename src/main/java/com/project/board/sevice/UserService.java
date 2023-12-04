@@ -37,16 +37,17 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = userRepository.findByEmail(email);
-        if (member == null) {
-            throw new UsernameNotFoundException(email + "에 해당하는 사용자를 찾을 수 없습니다.");
-        }
 
-        return User.builder()
-                .username(member.getNickname())
+        if (member == null) {
+            throw new UsernameNotFoundException("User not found with username: " + email);
+        }
+        return  User.builder()
+                .username(member.getEmail())
                 .password(member.getPassword())
-                .roles("USER")
+                .roles("USER") // 권한 설정 (필요에 따라 변경)
                 .build();
     }
+
 
 
 }
