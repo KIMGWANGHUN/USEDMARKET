@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private Member member;
+    private PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     //회원가입
@@ -37,7 +39,6 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Member member = userRepository.findByEmail(email);
-
         if (member == null) {
             throw new UsernameNotFoundException("User not found with username: " + email);
         }
@@ -48,6 +49,18 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
+    public Member myInfoView(String email) {
+        Member member = userRepository.findByEmail(email);
+        return member;
+    }
 
+    public void update(Member member,String email) {
+        Member oriMember = userRepository.findByEmail(email);
+        if(member.getPassword().isEmpty()) {
+            member.setPassword(oriMember.getPassword());
+        } else {
+        userRepository.save(member);
+        }
+    }
 
 }

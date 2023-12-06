@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/modify/{email}(email=${member.email})}" method="post">
+<input name="name" th:value="${member.name}" readonly><br>
+<input name="email" th:value="${member.email}" readonly><br>
+<input name="password" type="password" placeholder="비밀번호 변경을 원하시면 새 비밀번호를 입력해주세요"><br>
+<input name="nickname" th:value="${member.nickname}"><br>
+<input name="address" th:value="${member.address}"><br>
+<input name="phone" th:value="${member.phone}"><br>
+<button type="submit">수정완료</button>
+</form>
+<a th:href="@{/mypageView}">뒤로</a>
+</body>
+</html>
