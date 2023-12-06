@@ -7,12 +7,14 @@ import com.project.board.repository.UserRepository;
 import com.project.board.sevice.BoardService;
 import com.project.board.sevice.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
@@ -73,14 +75,25 @@ public class UserController {
     @GetMapping("/mypageView")
     public String mypage(Principal principal, ModelMap modelMap) {
         String email = principal.getName();
-        System.out.println("eaaadfa" + email);
         Member member = userRepository.findByEmail(email);
         modelMap.addAttribute("member",member);
         return "mypageView";
     }
 
+    //마이페이지 수정페이지
+    @GetMapping("/modifyMyInfo/{email}")
+    public String modifyMyInfo(@PathVariable("email") String email,Model model) {
+        model.addAttribute("member",userService.myInfoView(email));
+        return "/modifyMyInfo";
+    }
 
-
+    //마이페이지 수정
+    @PostMapping("/modify/{email}")
+    public String modify(@Valid UserDto uDto, Model model,String email) {
+        Member member = Member.updateMember(uDto,passwordEncoder);
+        userService.update(member,email);
+        return "redirect:/mypageView/";
+    }
 
     //판매글 페이지로 이동
     @GetMapping("/boardList")

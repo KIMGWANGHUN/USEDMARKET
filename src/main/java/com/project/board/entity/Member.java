@@ -37,5 +37,17 @@ public class Member   {
         return member;
     }
 
+    public static Member updateMember(UserDto uDto, PasswordEncoder passwordEncoder) {
+        Member member = new Member();
+        member.setEmail(uDto.getEmail());
+        member.setName((uDto.getName()));
+        String password = passwordEncoder.encode(uDto.getPassword());
+        member.setPassword(password);
+        member.setPhone(uDto.getPhone());
+        member.setNickname(uDto.getNickname());
+        member.setAddress(uDto.getAddress());
+        return member;
+    }
+
 
 }
