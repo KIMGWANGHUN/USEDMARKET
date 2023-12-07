@@ -6,11 +6,11 @@
     <title>Title</title>
 </head>
 <body>
-<div th:text="${member.name}"></div>
-<div th:text="${member.email}"></div>
-<div th:text="${member.nickname}"></div>
-<div th:text="${member.address}"></div>
-<div th:text="${member.phone}"></div>
+<span>이름 :</span> <input name="name" th:value="${member.name}" readonly><br>
+<span>이메일 : </span><input name="email" th:value="${member.email}" readonly><br>
+<span>닉네임 :</span> <input name="nickname" th:value="${member.nickname}" readonly><br>
+<span>주소 :</span> <input name="address" th:value="${member.address}" readonly><br>
+<span>전화 번호 :</span> <input name="phone" th:value="${member.phone}" readonly><br>
 <a th:href="@{/modifyMyInfo/{email}(email=${member.email})}">수정</a>
 <a href="/">메인으로</a>
 </body>

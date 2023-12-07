@@ -95,6 +95,29 @@ public class UserController {
         return "redirect:/mypageView/";
     }
 
+    //이메일 찾기 페이지
+    @GetMapping("/findEmailPage")
+    public String findEmailPage() {
+        return "findEmail";
+    }
+
+    //이메일 찾기
+    @PostMapping(value="findEmail")
+    public String findEmail(@RequestParam("name") String name, @RequestParam("phone") String phone,Model model) {
+            Member member = userService.findEmail(name, phone);
+            model.addAttribute("email","가입된 이메일은"+ maskEmail(member.getEmail())+"입니다");
+            model.addAttribute("index","/");
+        return "findEmailMsg";
+    }
+
+    private String maskEmail(String email) {
+
+        int length = email.length();
+        int visibleCharacters = Math.min(length, 3);  // 마지막 3글자만 가리기
+        String maskedSuffix = "*".repeat(visibleCharacters);
+        return email.substring(0, length - 3) + maskedSuffix;
+        }
+
     //판매글 페이지로 이동
     @GetMapping("/boardList")
     public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable) {

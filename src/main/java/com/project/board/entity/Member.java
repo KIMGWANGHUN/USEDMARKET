@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "USERDATA")
 @Setter
 @Getter
 @Table(name ="USERDATA")
@@ -46,6 +46,13 @@ public class Member   {
         member.setPhone(uDto.getPhone());
         member.setNickname(uDto.getNickname());
         member.setAddress(uDto.getAddress());
+        return member;
+    }
+
+    public static Member findEmail(UserDto uDto) {
+        Member member = new Member();
+        member.setName(uDto.getName());
+        member.setPhone(uDto.getPhone());
         return member;
     }
 
