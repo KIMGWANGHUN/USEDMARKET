@@ -49,11 +49,13 @@ public class UserService implements UserDetailsService {
                 .build();
     }
 
+    //마이페이지로 이동
     public Member myInfoView(String email) {
         Member member = userRepository.findByEmail(email);
         return member;
     }
 
+    //마이페이지 수정하기
     public void update(Member member,String email) {
         Member oriMember = userRepository.findByEmail(email);
         if(member.getPassword().isEmpty()) {
@@ -63,4 +65,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public Member findEmail(String name, String phone) {
+        Member findMember = userRepository.findByNameAndPhone(name,phone);
+       return findMember;
+    }
 }
