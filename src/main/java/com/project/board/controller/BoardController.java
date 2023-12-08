@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.plaf.multi.MultiLabelUI;
 import javax.transaction.Transactional;
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -59,17 +61,14 @@ public class BoardController {
     @GetMapping("/board/list")
     public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable,
                             String searchKeyword) {
-        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
-        boardService.write(exBoard);
 
-        Page<Board>  list = null;
+        Page<Board> list = null;
 
         if(searchKeyword == null) {
             list = boardService.boardList(pageable);
         } else {
             list = userService.boardSearchList(searchKeyword,pageable);
         }
-
 
         int nowPage = list.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);

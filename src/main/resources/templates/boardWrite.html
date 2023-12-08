@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
                 xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
->
 <head>
     <meta charset="UTF-8">
     <title>글작성</title>
@@ -34,10 +33,22 @@
     <H1>판매글 작성</H1>
     <div class="writePage">
         <form action="/board/writeEnd" method="POST" enctype="multipart/form-data">
-            <input name="nickname" th:value="${#authentication.name}"></br>
+            <input name="nickname" th:value="${#authentication.name}" readonly/></br>
             <select name="bCategory">
-                <option>팝니다</option>
-                <option>삽니다</option>
+                <option>디지털기기</option>
+                <option>가구/인테리어</option>
+                <option>유아동</option>
+                <option>의류</option>
+                <option>생활가전</option>
+                <option>생활/주방</option>
+                <option>식품</option>
+                <option>스포츠/레저</option>
+                <option>취미/게임</option>
+                <option>뷰티/미용</option>
+                <option>식물</option>
+                <option>반려동물용품</option>
+                <option>티켓/도서</option>
+                <option>기타</option>
             </select>
             <input name="bTitle" placeholder="제목">
             <input name="bPrice" placeholder="가격"></br>

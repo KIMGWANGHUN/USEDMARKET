@@ -22,6 +22,7 @@ public class Board {
     private int bViews;
     private String fileName;
     private String filePath;
+    private int fileAttached;   //파일첨부여부(첨부1, 미첨부0)
 
     public Board(){
         super();
