@@ -39,10 +39,9 @@ public class UserController {
     private final BoardService boardService;
 
     //메인페이지
-    @GetMapping("/")
-    public String index() {
-        return "index";
-    }
+//    public String index() {
+//        return "index";
+//    }
 
     //회원가입 페이지로 이동
     @GetMapping("/UserJoinPage")

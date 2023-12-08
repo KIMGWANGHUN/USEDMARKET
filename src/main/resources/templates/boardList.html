@@ -73,7 +73,7 @@
                 <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page -1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
                 <strong th:if="${page == nowPage}" th:text="${page}"></strong>
             </th:block>
-            <form th:action="@{/boardList}" method="get">
+            <form th:action="@{/board/list}" method="get">
                 <input type="text" name="searchKeyword">
                 <button type="submit">검색</button>
             </form>
