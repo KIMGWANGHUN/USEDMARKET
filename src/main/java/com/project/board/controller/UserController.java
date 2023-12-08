@@ -110,6 +110,7 @@ public class UserController {
         return "findEmailMsg";
     }
 
+    //찾은 이메일 일부 *표시로 보여주기
     private String maskEmail(String email) {
 
         int length = email.length();
@@ -117,24 +118,38 @@ public class UserController {
         String maskedSuffix = "*".repeat(visibleCharacters);
         return email.substring(0, length - 3) + maskedSuffix;
         }
+        
+    //비밀번호찾기 페이지
+    @GetMapping("/memberFindPw")
+    public String memberFindPw() {
+        return "memberFindPw";
+    }
 
     //판매글 페이지로 이동
-    @GetMapping("/boardList")
-    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable) {
-        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
-        boardService.write(exBoard);
-
-        Page<Board> list = boardService.boardList(pageable);
-
-        int nowPage = list.getPageable().getPageNumber() + 1;
-        int startPage = Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage + 5, list.getTotalPages());
-
-        model.addAttribute("list", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-
-        return "boardList";
-    }
+//    @GetMapping("/boardList")
+//    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable,
+//                            String searchKeyword) {
+//        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
+//        boardService.write(exBoard);
+//
+//        Page<Board>  list = null;
+//
+//        if(searchKeyword == null) {
+//             list = boardService.boardList(pageable);
+//        } else {
+//             list = userService.boardSearchList(searchKeyword,pageable);
+//        }
+//
+//
+//        int nowPage = list.getPageable().getPageNumber() + 1;
+//        int startPage = Math.max(nowPage - 4, 1);
+//        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+//
+//        model.addAttribute("list", list);
+//        model.addAttribute("nowPage", nowPage);
+//        model.addAttribute("startPage", startPage);
+//        model.addAttribute("endPage", endPage);
+//
+//        return "boardList";
+//    }
 }

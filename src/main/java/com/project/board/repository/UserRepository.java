@@ -1,7 +1,10 @@
 package com.project.board.repository;
 
 import com.project.board.dto.UserDto;
+import com.project.board.entity.Board;
 import com.project.board.entity.Member;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +22,6 @@ public interface UserRepository extends JpaRepository<Member, String> { // value
 
     @Query("SELECT m FROM USERDATA m WHERE m.name = :name AND m.phone = :phone")
     Member findByNameAndPhone(@Param("name") String name, @Param("phone") String phone);
+
+
 }

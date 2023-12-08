@@ -6,6 +6,7 @@
     <title>Title</title>
 </head>
 <body>
+<h2>내 정보 수정</h2>
 <form th:action="@{/modify/{email}(email=${member.email})}" method="post">
     <span>이름 :</span> <input name="name" th:value="${member.name}" readonly><br>
     <span>이메일 : </span><input name="email" th:value="${member.email}" readonly><br>
