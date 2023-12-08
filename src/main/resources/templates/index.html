@@ -27,12 +27,15 @@
 <li sec:authorize="isAnonymous()" style="list-style:none;">
     <a th:href="@{/findEmailPage}">이메일 찾기</a>
 </li>
+<li sec:authorize="isAnonymous()" style="list-style:none;">
+    <a th:href="@{/memberFindPw}">비밀번호 찾기</a>
+</li>
 <li sec:authorize="isAuthenticated()" style="list-style:none;">
     <p>안녕하세요<a th:href="@{/mypageView}"><span sec:authentication="name"></span></a>님</p>
 </li>
 
-<li sec:authorize="isAuthenticated()" style="list-style:none">
-    <a th:href="@{/boardList}">판매</a>
-</li>
+<!--<li sec:authorize="isAuthenticated()" style="list-style:none">-->
+<!--    <a th:href="@{/boardList}">판매</a>-->
+<!--</li>-->
 </body>
 </html>

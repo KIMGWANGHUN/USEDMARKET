@@ -42,7 +42,7 @@ public class BoardController {
 
         boardService.write(board, file);
         model.addAttribute("message", "작성완료!!");
-        model.addAttribute("listPage", "/board/list");
+        model.addAttribute("listPage", "/boardList");
         return "boardMessage";
     }
 
@@ -55,12 +55,20 @@ public class BoardController {
 */
 
     //게시판 리스트
-    @GetMapping("/board/list")
-    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable) {
+    @GetMapping("/boardList")
+    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable,
+                            String searchKeyword) {
         Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
         boardService.write(exBoard);
 
-        Page<Board> list = boardService.boardList(pageable);
+        Page<Board>  list = null;
+
+        if(searchKeyword == null) {
+            list = boardService.boardList(pageable);
+        } else {
+            list = userService.boardSearchList(searchKeyword,pageable);
+        }
+
 
         int nowPage = list.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);
@@ -86,7 +94,7 @@ public class BoardController {
     @GetMapping("/board/delete")
     public String boardDelete(Integer id) {
         boardService.boardDelete(id);
-        return "redirect:/board/list";
+        return "redirect:/boardList";
     }
 
     //게시글 수정 페이지
@@ -107,7 +115,7 @@ public class BoardController {
 
         boardService.write(boardTemp);
 
-        return "redirect:/board/list";
+        return "redirect:/boardList";
     }
 
 }

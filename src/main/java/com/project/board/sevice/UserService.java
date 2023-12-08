@@ -1,9 +1,13 @@
 package com.project.board.sevice;
 
 import com.project.board.dto.UserDto;
+import com.project.board.entity.Board;
 import com.project.board.entity.Member;
+import com.project.board.repository.BoardRepository;
 import com.project.board.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +23,7 @@ public class UserService implements UserDetailsService {
     private Member member;
     private PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final BoardRepository boardRepository;
 
     //회원가입
     public Member saveMember(Member member) {
@@ -65,8 +70,14 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    //이메일 찾기
     public Member findEmail(String name, String phone) {
         Member findMember = userRepository.findByNameAndPhone(name,phone);
        return findMember;
+    }
+
+    public Page<Board> boardSearchList(String searchKeyword, Pageable pageable) {
+
+        return boardRepository.findBybTitleContaining(searchKeyword, pageable);
     }
 }
