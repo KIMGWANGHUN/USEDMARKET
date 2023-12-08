@@ -17,7 +17,7 @@
         <button type="submit">로그인</button>
     </li>
     <li sec:authorize="isAuthenticated()" style="list-style:none">
-        <a th:href="logout">로그아웃</a>
+        <a th:href="@{/board/logout}">로그아웃</a>
     </li>
     <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
 </form>

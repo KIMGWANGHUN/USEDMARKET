@@ -13,6 +13,6 @@
 <span>주소 :</span> <input name="address" th:value="${member.address}" readonly><br>
 <span>전화 번호 :</span> <input name="phone" th:value="${member.phone}" readonly><br>
 <a th:href="@{/modifyMyInfo/{email}(email=${member.email})}">수정</a>
-<a href="/boardList">메인으로</a>
+<a href="/board/list">메인으로</a>
 </body>
 </html>

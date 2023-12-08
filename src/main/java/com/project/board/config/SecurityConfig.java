@@ -38,11 +38,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .loginPage("/")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/boardList")
+                .defaultSuccessUrl("/board/list")
                 .failureUrl("/index")
                 .and()
                 .logout()
-                .logoutUrl("/logout")
+                .logoutUrl("/board/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true).deleteCookies("JSESSIONID");
     }
