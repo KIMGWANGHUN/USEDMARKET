@@ -84,9 +84,9 @@ public class BoardController {
 
     //게시물 페이지
     @GetMapping("/board/view")  // localhost:8090/board/view?id=1
-    @Transactional
     public String boardView(Model model, Integer id) {
-        model.addAttribute("board", boardService.boardView(id));
+        Board board =  boardService.boardView(id);
+        model.addAttribute("board", board);
         return "boardView";
     }
 
