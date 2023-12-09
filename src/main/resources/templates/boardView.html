@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>게시글 페이지</title>
@@ -20,10 +20,13 @@
 
     <p th:text="${board.bContent}"></p>
     <img th:src="@{${board.filePath}}" alt="no image">
+    <div>
+        <p th:text="${board.filePath}"></p>
+    </div>
 
     <hr>
 
-    <a th:href="@{${board.filePath}}">파일다운로드</a>
+    <a th:href="@{${board.filePath}}">사진보기</a>
     <a th:href="@{/board/delete(id=${board.bId})}">글삭제</a>
     <a th:href="@{/board/modify/{id}(id=${board.bId})}">글수정</a>
     <a th:href="@{/board/list}">목록</a>

@@ -18,11 +18,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.plaf.multi.MultiLabelUI;
 import javax.transaction.Transactional;
+import java.awt.font.MultipleMaster;
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -44,8 +47,11 @@ public class BoardController {
     public String boardWriteEnd(Board board, Model model, MultipartFile file) throws Exception {
 
         boardService.write(board, file);
+
         model.addAttribute("message", "작성완료!!");
+
         model.addAttribute("listPage", "/board/list");
+
         return "boardMessage";
     }
 
@@ -85,8 +91,7 @@ public class BoardController {
     //게시물 페이지
     @GetMapping("/board/view")  // localhost:8090/board/view?id=1
     public String boardView(Model model, Integer id) {
-        Board board =  boardService.boardView(id);
-        model.addAttribute("board", board);
+        model.addAttribute("board", boardService.boardView(id));
         return "boardView";
     }
 
@@ -106,14 +111,14 @@ public class BoardController {
 
     //게시글 수정
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board) {
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file) throws Exception{
         Board boardTemp = boardService.boardView(id);
         boardTemp.setBCategory(board.getBCategory());
         boardTemp.setBTitle(board.getBTitle());
         boardTemp.setBPrice(board.getBPrice());
         boardTemp.setBContent(board.getBContent());
 
-        boardService.write(boardTemp);
+        boardService.write(boardTemp, file);
 
         return "redirect:/board/list";
     }
