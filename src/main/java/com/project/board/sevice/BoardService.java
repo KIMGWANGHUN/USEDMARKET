@@ -23,20 +23,29 @@ public class BoardService {
     @Autowired
     private BoardRepository boardRepository;
 
-    //게시판 글작성
-    public void write(Board board){
-        boardRepository.save(board);
-    }
-
     //게시판 글작성(파일추가)
-    public void write(Board board, MultipartFile file) throws Exception{
-        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\files";
+    public void write(Board board, MultipartFile file) throws Exception {
+        //프로젝트 경로를 담아줌(경로지정)
+        String projectPath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img";
+
+        //랜덤으로 이름을 생성(식별자)
         UUID uuid = UUID.randomUUID();
+
+        //식별자 + 파일이름 = 최종 파일이름
         String fileName = uuid + "_" + file.getOriginalFilename();
+
+        //파일을 projectPath 경로와 fileName 이름으로 담는다(껍데기 생성)
         File saveFile = new File(projectPath, fileName);
+
+        //
         file.transferTo(saveFile);
+
+        //생성된 fileName을 넣는다
         board.setFileName(fileName);
-        board.setFilePath("/files/" + fileName);
+
+        //생성된 filePath를 넣는다(서버에서 접근할 땐 static 밑에 있는 부분은 아래 경로로 접근가능)
+        board.setFilePath("/img/" + fileName);
+
         boardRepository.save(board);
     }
 
