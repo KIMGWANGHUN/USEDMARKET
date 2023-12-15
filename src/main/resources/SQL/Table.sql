@@ -17,6 +17,7 @@ CREATE TABLE Board (
 	b_price	varchar(50)	NOT NULL,
 	b_content	varchar(255)	NOT NULL,
 	b_address	varchar(255)	NOT NULL,
+	b_detailAddress	varchar(255),
 	b_date	date	NOT NULL,
 	b_views	int	NOT NULL
 	filename varchar(150),
