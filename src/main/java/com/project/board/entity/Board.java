@@ -18,6 +18,7 @@ public class Board {
     private String bContent;
     private String bPrice;
     private String bAddress;
+    private String bDetailAddress;
     private String bDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     private int bViews;
     private String fileName;
@@ -27,12 +28,13 @@ public class Board {
         super();
     }
 
-    public Board(String bTitle, String bCategory, String bContent, String bPrice, String bAddress, String bDate, int bViews) {
+    public Board(String bTitle, String bCategory, String bContent, String bPrice, String bAddress, String bDetailAddress, String bDate, int bViews) {
         this.bTitle = bTitle;
         this.bCategory = bCategory;
         this.bContent = bContent;
         this.bPrice = bPrice;
         this.bAddress = bAddress;
+        this.bDetailAddress = bDetailAddress;
         this.bDate = bDate;
         this.bViews = bViews;
     }

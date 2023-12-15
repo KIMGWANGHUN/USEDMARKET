@@ -8,6 +8,7 @@
 <style>
     div {
         margin : 0 auto;
+        margin-top : 40px;
         width : 800px;
     }
 </style>
@@ -15,6 +16,16 @@
 <body>
 <div>
     <h1 th:text="${board.bTitle}"></h1>
+
+    <hr>
+
+    작성자 : <span th:value="${#authentication.name}"></span><br/>
+    카테고리 : <span th:text="${board.bCategory}"></span><br/>
+    가격 : <span th:text="${board.bPrice}"></span><br/>
+    거래장소 : <span th:text="${board.bAddress}"></span><br/>
+    거래장소 상세설명 : <span th:text="${board.bDetailAddress}"></span><br/>
+    작성일 : <span th:text="${board.bDate}"></span><br/>
+    조회수 : <span th:text="${board.bViews}"></span><br/>
 
     <hr>
 
