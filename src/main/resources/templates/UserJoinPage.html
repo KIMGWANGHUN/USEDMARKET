@@ -3,43 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<style>
+    .joinDiv {
+    text-align:center;
+    margin-top:300px;
+    }
+    span {
+        display: inline-block;
+        width: 120px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    input {
+        display: inline-block;
+        width: 200px;
+        margin-bottom: 10px;
+    }
+    #confirmPassword {
+            width: 200px;
+        }
+</style>
 </head>
+
 <body>
-<h2>회원가입</h2>
+<div class="joinDiv">
+    <h2>회원가입</h2>
 
-<form action="/save" method="post">
-<span>이름 :</span>
-<input type="text" name="name"><br>
-<span>이메일 : </span>
-<input type="text" name="email" id="email" onchange="validateEmail()"><br>
-<span>비밀번호 : </span>
-<input type="password" name="password"><br>
-<span>전화번호 : </span>
-<input type="text" name="phone"><br>
-<span>닉네임 : </span>
-<input type="text" name="nickname"><br>
-<span>주소 : </span>
-<input type="text" name="address"><br>
+    <form id="signupForm" action="/save" method="post" onsubmit="return validateForm()">
+        <span>이름 :</span>
+        <input type="text" name="name" required><br>
+        <span>이메일 : </span>
+        <input type="text" name="email" id="email" required><br>
+        <span>비밀번호 : </span>
+        <input type="password" name="password" id="password" required><br>
+        <span>비밀번호 확인 : </span>
+        <input type="password" name="confirmPassword" id="confirmPassword" required><br>
+        <span>전화번호 : </span>
+        <input type="text" name="phone" required><br>
+        <span>닉네임 : </span>
+        <input type="text" name="nickname" required><br>
+        <span>주소 : </span>
+        <input type="text" name="address" required><br>
 
-    <button type="submit" value="회원가입">회원가입</button>
+        <button type="submit" value="회원가입" id="check">회원가입</button>
         <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+    </form>
+</div>
 
-</form>
+<script>
+    $(document).ready(function () {
+        $("#signupForm").submit(function (event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
 
-<!--<script>-->
-<!--    var email_rule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*-->
-<!--    var email = $("#email").val();-->
+        function validateForm() {
+            var email = $("#email").val();
+            var password = $("#password").val();
+            var confirmPassword = $("#confirmPassword").val();
 
-<!--    if(!email){-->
-<!--    alert("이메일을 입력해주세요");-->
-<!--    $(#email).focus();-->
-<!--    return false;-->
-<!--    } else if(!email_rule.test(email)) {-->
-<!--    alert("이메일 형식에 맞게 입력해주세요");-->
-<!--    return false;-->
-<!--    }-->
+            // 이메일 유효성 검사
+            var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("올바른 이메일 주소를 입력하세요.");
+                return false;
+            }
 
-<!--</script>-->
+            // 비밀번호 일치 여부 확인
+            if (password !== confirmPassword) {
+                alert("비밀번호가 일치하지 않습니다.");
+                return false;
+            }
 
+            // 필수 항목이 입력되었는지 확인
+            if ($("#signupForm")[0].checkValidity() === false) {
+                alert("모든 필수 항목을 입력하세요.");
+                return false;
+            }
+
+            // 모든 검사를 통과하면 true 반환하여 폼 제출
+            return true;
+        }
+    });
+</script>
 </body>
 </html>

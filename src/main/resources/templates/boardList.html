@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>게시판 리스트</title>
@@ -105,11 +106,22 @@
         background-color : gray;
         border : 1px solid gray;
     }
+    .myInfo {
+    text-align : right;
+    margin : 50px 200px 30px 0;
+    }
 </style>
 
 <body>
-<div th:replace="/index.html"></div>
     <!--Title-->
+    <div class="myInfo">
+        <li sec:authorize="isAuthenticated()" style="list-style:none;">
+            <p>안녕하세요<a th:href="@{/mypageView}"><span sec:authentication="name"></span></a>님</p>
+        </li>
+        <li sec:authorize="isAuthenticated()" style="list-style:none">
+            <a th:href="@{/board/logout}">로그아웃</a>
+        </li>
+    </div>
     <h1>판매게시판</h1>
 
     <!--게시판-->

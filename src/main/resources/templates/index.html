@@ -3,37 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <title>메인 페이지</title>
+    <style>
+        .total {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        .usedMarket {
+            font-size: 30px;
+            background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            margin-bottom: 20px;
+            position: relative;
+            animation: bendText 2s infinite;
+        }
+
+        @keyframes bendText {
+            0% {
+                transform: skewX(-15deg);
+            }
+            50% {
+                transform: skewX(15deg);
+            }
+            100% {
+                transform: skewX(-15deg);
+            }
+        }
+
+        .usedMarket:before {
+            content: '\1F4AB';
+            font-size: 50px;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .formContainer {
+            display: flex;
+            align-items: center;
+        }
+
+        .formClass,
+        .formClass2,
+        .links {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .formClass {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Align items to the right */
+            margin-right: 10px; /* Add some margin to separate from formClass2 */
+        }
+
+        .formClass2 button {
+         padding: 15px 20px; /* 원하는 크기로 조절하세요. */
+        font-size: 16px; /* 원하는 글자 크기로 조절하세요. */
+        }
+
+        .link1 {
+        display:inline-block;
+        }
+        .link2 {
+        display:inline-block;
+        }
+        .link3 {
+        display:inline-block;
+        }
+
+    </style>
+
 </head>
 
 <body>
-<form method="post" action="/login">
-    <li sec:authorize="isAnonymous()" style="list-style:none;">
-        <span>이메일</span><input type="text" name="email">
-    </li>
-    <li sec:authorize="isAnonymous()" style="list-style:none;">
-        <span>비밀번호</span><input type="password" name="password">
-    </li>
-    <li sec:authorize="isAnonymous()" style="list-style:none;">
-        <button type="submit">로그인</button>
-    </li>
-    <li sec:authorize="isAuthenticated()" style="list-style:none">
-        <a th:href="@{/board/logout}">로그아웃</a>
-    </li>
-    <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
-</form>
-<li sec:authorize="isAnonymous()" style="list-style:none;">
-    <a th:href="@{/UserJoinPage}">회원가입</a>
-</li>
-<li sec:authorize="isAnonymous()" style="list-style:none;">
-    <a th:href="@{/findEmailPage}">이메일 찾기</a>
-</li>
-<li sec:authorize="isAnonymous()" style="list-style:none;">
-    <a th:href="@{/memberFindPw}">비밀번호 찾기</a>
-</li>
-<li sec:authorize="isAuthenticated()" style="list-style:none;">
-    <p>안녕하세요<a th:href="@{/mypageView}"><span sec:authentication="name"></span></a>님</p>
-</li>
 
+
+<div class="total">
+    <p class="USEDMARKET" sec:authorize="isAnonymous()">USEDMARKET</p>
+    <form method="post" action="/login">
+        <div class="formContainer">
+
+            <div class="formClass">
+                <li sec:authorize="isAnonymous()" style="list-style:none; margin-bottom:10px">
+                    이메일 : <input type="text" name="email" class="email">
+                </li>
+                <li sec:authorize="isAnonymous()" style="list-style:none;">
+                    비밀번호 : <input type="password" name="password" class="password">
+                </li>
+            </div>
+            <div class="formClass2">
+
+                <li sec:authorize="isAnonymous()" style="list-style:none;">
+                    <button type="submit">로그인</button>
+                </li>
+                <input type="hidden" th:name="${_csrf?.parameterName}" th:value="${_csrf?.token}">
+            </div>
+        </div>
+    </form>
+    <div class="links">
+        <div class="link1">
+            <li sec:authorize="isAnonymous()" style="list-style:none;">
+                <a th:href="@{/UserJoinPage}">회원가입</a>&nbsp;/
+            </li>
+        </div>
+        <div class="link2">
+            <li sec:authorize="isAnonymous()" style="list-style:none;">
+                &nbsp;<a th:href="@{/findEmailPage}">이메일 찾기</a>&nbsp;/
+            </li>
+        </div>
+        <div class="link3">
+            <li sec:authorize="isAnonymous()" style="list-style:none;">
+                &nbsp;<a th:href="@{/memberFindPw}">비밀번호 찾기</a>
+            </li>
+        </div>
+    </div>
+</div>
 <!--<li sec:authorize="isAuthenticated()" style="list-style:none">-->
 <!--    <a th:href="@{/boardList}">판매</a>-->
 <!--</li>-->
