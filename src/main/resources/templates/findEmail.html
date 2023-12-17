@@ -4,6 +4,43 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+        body {
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           height: 100vh;
+           margin: 0;
+       }
+
+       form {
+           text-align: center;
+       }
+
+       h2 {
+           margin: 0; /* Remove default margin */
+           position: absolute;
+           left: 850px;
+           top: 300px;
+       }
+
+       span, input {
+           display: block;
+           margin-bottom: 10px; /* Adjust the margin as needed */
+       }
+
+       .nameSpan, .phoneSpan {
+           display: inline-block;
+           width: 100px; /* Adjust the width as needed */
+           text-align: right;
+           margin-right: 10px; /* Adjust the margin as needed */
+       }
+
+       .nameInput, .phoneInput {
+           display: inline-block;
+           width: 200px; /* Adjust the width as needed */
+       }
+    </style>
 </head>
 
 
@@ -11,11 +48,13 @@
 
 
 <h2>이메일 찾기</h2>
+
 <form action="/findEmail" method="post" id="findEmail">
-<span>이름 : </span> <input type="text" name="name">
-<span>전화번호 : </span> <input type="text" name="phone">
+<span class="nameSpan">이름 : </span> <input type="text" name="name" class="nameInput"><br>
+<span class="phoneSpan">전화번호 : </span> <input type="text" name="phone" class="phoneInput"><br>
 <button type="submit">이메일 조회하기</button>
 </form>
+</div>
 
 </body>
 </html>
