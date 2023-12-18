@@ -3,6 +3,7 @@ package com.project.board.controller;
 import com.project.board.entity.Board;
 import com.project.board.entity.Member;
 import com.project.board.repository.BoardRepository;
+import com.project.board.repository.UserRepository;
 import com.project.board.sevice.BoardService;
 import com.project.board.sevice.UserService;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import javax.swing.plaf.multi.MultiLabelUI;
 import java.awt.font.MultipleMaster;
 import java.io.File;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -36,11 +38,15 @@ public class BoardController {
     private final BoardService boardService;
     private final BoardRepository boardRepository;
     private final UserService userService;
+    private final UserRepository userRepository;
 
 
     //게시글 작성 페이지
     @GetMapping("/board/write")     //localhost:8090/board/write
-    public String boardWriterForm() {
+    public String boardWriterForm(Principal principal, Model model) {
+        String nickname = principal.getName();
+        Member member = userRepository.findByEmail(nickname);
+        model.addAttribute("member", member);
         return "boardWrite";
     }
 
@@ -85,7 +91,10 @@ public class BoardController {
     //게시물 페이지
     @GetMapping("/board/view")  // localhost:8090/board/view?id=1
     @Transactional
-    public String boardView(Model model, Integer id) {
+    public String boardView(Principal principal, Model model, Integer id) {
+        String nickname = principal.getName();
+        Member member = userRepository.findByEmail(nickname);
+        model.addAttribute("member", member);
         model.addAttribute("board", boardService.boardView(id));
         return "boardView";
     }
@@ -99,7 +108,10 @@ public class BoardController {
 
     //게시글 수정 페이지
     @GetMapping("/board/modify/{id}")
-    public String boardModify(@PathVariable("id") Integer id, Model model) {
+    public String boardModify(@PathVariable("id") Integer id, Principal principal, Model model) {
+        String nickname = principal.getName();
+        Member member = userRepository.findByEmail(nickname);
+        model.addAttribute("member", member);
         model.addAttribute("board", boardService.boardView(id));
         return "boardModify";
     }

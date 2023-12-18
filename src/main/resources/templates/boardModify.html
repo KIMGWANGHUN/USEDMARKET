@@ -73,7 +73,7 @@
 <!--작성페이지-->
 <div class="writePage">
     <form th:action="@{/board/update/{id}(id = ${board.bId})}" method="POST">
-        닉네임<input class="nickname" name="nickname" th:value="${#authentication.name}" readonly/></br><br>
+        닉네임<input class="nickname" name="nickname" th:value="${member.nickname}" readonly/></br><br>
         제목<input class="title" name="bTitle" th:value="${board.bTitle}" placeholder="제목을 입력하세요"><br><br>
         <!--가격,카테고리-->
         <div class="PriceAndCategoryDiv">
