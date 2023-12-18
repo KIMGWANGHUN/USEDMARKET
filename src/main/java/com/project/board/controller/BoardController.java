@@ -120,10 +120,12 @@ public class BoardController {
     @PostMapping("/board/update/{id}")
     public String boardUpdate(@PathVariable("id") Integer id, Board board, MultipartFile file) throws Exception{
         Board boardTemp = boardService.boardView(id);
-        boardTemp.setBCategory(board.getBCategory());
         boardTemp.setBTitle(board.getBTitle());
-        boardTemp.setBPrice(board.getBPrice());
+        boardTemp.setBCategory(board.getBCategory());
         boardTemp.setBContent(board.getBContent());
+        boardTemp.setBPrice(board.getBPrice());
+        boardTemp.setBAddress(board.getBAddress());
+        boardTemp.setBDetailAddress(board.getBDetailAddress());
         boardTemp.setFileName(board.getFileName());
         boardTemp.setFilePath(board.getFilePath());
 

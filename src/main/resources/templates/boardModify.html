@@ -72,7 +72,7 @@
 
 <!--작성페이지-->
 <div class="writePage">
-    <form th:action="@{/board/update/{id}(id = ${board.bId})}" method="POST">
+    <form th:action="@{/board/update/{id}(id = ${board.bId})}" method="POST" enctype="multipart/form-data">
         닉네임<input class="nickname" name="nickname" th:value="${member.nickname}" readonly/></br><br>
         제목<input class="title" name="bTitle" th:value="${board.bTitle}" placeholder="제목을 입력하세요"><br><br>
         <!--가격,카테고리-->
@@ -108,7 +108,7 @@
             </div>
             <div class="DetailAddressDiv">
                 상세주소<br>
-                <input class="detailAddress" type="text" placeholder="ex)ㅇㅇ편의점 앞">
+                <input class="detailAddress" type="text" name="bDetailAddress" placeholder="ex)ㅇㅇ편의점 앞">
             </div>
         </div><br>
         게시글 작성<textarea name="bContent" th:text="${board.bContent}"></textarea></br>
