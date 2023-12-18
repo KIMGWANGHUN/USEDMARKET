@@ -15,4 +15,5 @@ import java.util.List;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer>{
     Page<Board> findBybTitleContaining(String searchKeyword, Pageable pageable);
+
 }
