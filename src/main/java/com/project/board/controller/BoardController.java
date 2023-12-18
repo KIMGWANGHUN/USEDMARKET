@@ -15,6 +15,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.plaf.multi.MultiLabelUI;
-import javax.transaction.Transactional;
 import java.awt.font.MultipleMaster;
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +34,7 @@ import java.util.List;
 public class BoardController {
     @Autowired
     private final BoardService boardService;
+    private final BoardRepository boardRepository;
     private final UserService userService;
 
 
@@ -55,14 +56,6 @@ public class BoardController {
 
         return "boardMessage";
     }
-
-/*
-    @GetMapping("/board/list")
-    public String boardList(Model model){
-        model.addAttribute("list", boardService.boardList());
-        return "boardList";
-    }
-*/
 
     //게시판 리스트
     @GetMapping("/board/list")
@@ -91,6 +84,7 @@ public class BoardController {
 
     //게시물 페이지
     @GetMapping("/board/view")  // localhost:8090/board/view?id=1
+    @Transactional
     public String boardView(Model model, Integer id) {
         model.addAttribute("board", boardService.boardView(id));
         return "boardView";
@@ -118,6 +112,8 @@ public class BoardController {
         boardTemp.setBTitle(board.getBTitle());
         boardTemp.setBPrice(board.getBPrice());
         boardTemp.setBContent(board.getBContent());
+        boardTemp.setFileName(board.getFileName());
+        boardTemp.setFilePath(board.getFilePath());
 
         boardService.write(boardTemp, file);
 

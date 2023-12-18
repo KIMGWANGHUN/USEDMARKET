@@ -63,7 +63,7 @@ public class BoardService {
     //게시글 페이지
     public Board boardView(Integer id){
         Board board = boardRepository.findById(id).get();
-        board.setBViews(board.getBViews() +1);
+        board.setBViews(board.getBViews()+1);
         return board;
     }
 
@@ -71,6 +71,5 @@ public class BoardService {
     public void boardDelete(Integer id){
         boardRepository.deleteById(id);
     }
-
 
 }

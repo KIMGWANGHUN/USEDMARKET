@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <title>게시판 리스트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
 </head>
-
 <style>
     body {
         margin-top : 40px;
+        font-family: 'Sunflower', sans-serif;
     }
     h1 {
         text-align : center;
@@ -40,8 +43,8 @@
         width : 70px;
         height : 30px;
         font-size : 15px;
-        font-family: 'Gugi', sans-serif;
         margin-top : 10px;
+        font-family: 'Sunflower', sans-serif;
     }
     .writeButton:hover {
         background-color : gray;
@@ -86,84 +89,90 @@
     .findInput {
         font-size : 20px;
         width : 200px;
-        height : 20px;
+        height : 27px;
         border : 2px solid black;
         border-radius : 5px;
     }
     .findBtn {
-        font-size : 17.7px;
-        margin-left : -10px;
+        font-size : 23px;
+        margin-left : -11px;
         border : 1px solid black;
         background-color : black;
         color : white;
         border-radius : 5px;
-        font-family: 'Gugi', sans-serif;
+        font-family: 'Sunflower', sans-serif;
         transition-duration : 0.5s;
         cursor : pointer;
-
+        height : 33px;
     }
     .findBtn:hover {
         background-color : gray;
         border : 1px solid gray;
     }
     .myInfo {
-    text-align : right;
-    margin : 50px 200px 30px 0;
+        text-align : right;
+        margin : 50px 200px 30px 0;
     }
 </style>
-
 <body>
-    <!--Title-->
-    <div class="myInfo">
-        <li sec:authorize="isAuthenticated()" style="list-style:none;">
-            <p>안녕하세요<a th:href="@{/mypageView}"><span sec:authentication="name"></span></a>님</p>
-        </li>
-        <li sec:authorize="isAuthenticated()" style="list-style:none">
-            <a th:href="@{/board/logout}">로그아웃</a>
-        </li>
+<!--Title-->
+<div class="myInfo">
+    <li sec:authorize="isAuthenticated()" style="list-style:none;">
+        <p>안녕하세요<a th:href="@{/mypageView}"><span sec:authentication="name"></span></a>님</p>
+    </li>
+    <li sec:authorize="isAuthenticated()" style="list-style:none">
+        <a th:href="@{/board/logout}">로그아웃</a>
+    </li>
+</div>
+<h1>판매게시판</h1>
+
+<!--게시판-->
+<div class="list">
+    <table>
+        <thead>
+        <tr>
+            <th>글번호</th>
+            <th>카테고리</th>
+            <th>제목</th>
+            <th>가격</th>
+            <th>작성일자</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${list}">
+            <td th:text="${board.bId}">1</td>
+            <td th:text="${board.bCategory}"></td>
+            <td>
+                <a th:text="${board.bTitle}" th:href="@{/board/view(id=${board.bId})}"></a>
+            </td>
+            <td th:text="${board.bPrice}"></td>
+            <td th:text="${board.bDate}"></td>
+            <td th:text="${board.bViews}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--글작성버튼-->
+    <button class="writeButton" th:onclick="|location.href='@{/board/write}'|">글작성</button>
+
+    </br>
+
+    <div class="pageDiv">
+        <!--Paging-->
+        <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+            <a class="pageNumber" th:if="${page != nowPage}"
+               th:href="@{/board/list(page = ${page -1}, searchKeyword = ${param.searchKeyword})}"
+               th:text="${page}"></a>
+            <strong class="pageStrong" th:if="${page == nowPage}" th:text="${page}"></strong>
+        </th:block>
+
+        <!--검색-->
+        <form class="findForm" th:action="@{/board/list}" method="get">
+            <input class="findInput" type="text" name="searchKeyword">
+            <button class="findBtn" type="submit">검색</button>
+        </form>
     </div>
-    <h1>판매게시판</h1>
-
-    <!--게시판-->
-    <div class="list">
-        <table>
-            <thead>
-                <tr>
-                    <th>글번호</th><th>카테고리</th><th>제목</th><th>가격</th><th>작성일자</th><th>조회수</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="board : ${list}">
-                    <td th:text="${board.bId}">1</td>
-                    <td th:text="${board.bCategory}"></td>
-                    <td>
-                        <a th:text="${board.bTitle}" th:href="@{/board/view(id=${board.bId})}"></a>
-                    </td>
-                    <td th:text="${board.bPrice}"></td>
-                    <td th:text="${board.bDate}"></td>
-                    <td th:text="${board.bViews}"></td>
-                </tr>
-            </tbody>
-        </table>
-
-        <!--글작성버튼-->
-        <button class="writeButton" th:onclick="|location.href='@{/board/write}'|">글작성</button>
-
-        </br>
-
-        <div class="pageDiv">
-            <!--Paging-->
-            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                <a class="pageNumber" th:if="${page != nowPage}" th:href="@{/board/list(page = ${page -1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
-                <strong class="pageStrong" th:if="${page == nowPage}" th:text="${page}"></strong>
-            </th:block>
-
-            <!--검색-->
-            <form class="findForm" th:action="@{/board/list}" method="get">
-                <input class="findInput" type="text" name="searchKeyword">
-                <button class="findBtn" type="submit">검색</button>
-            </form>
-        </div>
-    </div>
+</div>
 </body>
 </html>
