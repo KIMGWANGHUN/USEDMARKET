@@ -5,6 +5,7 @@ import com.project.board.entity.Board;
 import com.project.board.entity.Member;
 import com.project.board.repository.UserRepository;
 import com.project.board.sevice.BoardService;
+import com.project.board.sevice.RegisterMail;
 import com.project.board.sevice.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.Banner;
@@ -37,7 +38,9 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final BoardService boardService;
+    private final RegisterMail registerMail;
 
+    private String code;
     //메인페이지
 //    public String index() {
 //        return "index";
@@ -70,12 +73,32 @@ public class UserController {
         return "redirect:/";
     }
 
+    //이메일 인증
+    @PostMapping("join/mailConfirm")
+    @ResponseBody
+    String mailConfirm(@RequestParam("email") String email) throws Exception {
+        code = registerMail.sendSimpleMessage(email);
+        System.out.println("code" + code);
+        return code;
+    }
+
+    //인증 확인
+    @PostMapping("/join/verifyCode")
+    @ResponseBody
+    public String verifyCode(@RequestParam("enteredCode") String enteredCode) {
+        if (enteredCode.equals(code)) {
+            return "success";
+        } else {
+            return "error";
+        }
+    }
+
     //마이페이지
     @GetMapping("/mypageView")
-    public String mypage(Principal principal, ModelMap modelMap) {
+    public String mypage(Principal principal, Model model) {
         String email = principal.getName();
         Member member = userRepository.findByEmail(email);
-        modelMap.addAttribute("member",member);
+        model.addAttribute("member",member);
         return "mypageView";
     }
 
@@ -124,31 +147,6 @@ public class UserController {
         return "memberFindPw";
     }
 
-    //판매글 페이지로 이동
-//    @GetMapping("/boardList")
-//    public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable,
-//                            String searchKeyword) {
-//        Board exBoard = new Board("testTitle", "팝니다", "testContetn", "50,000", "서울시", "2023-12-01", 11);
-//        boardService.write(exBoard);
-//
-//        Page<Board>  list = null;
-//
-//        if(searchKeyword == null) {
-//             list = boardService.boardList(pageable);
-//        } else {
-//             list = userService.boardSearchList(searchKeyword,pageable);
-//        }
-//
-//
-//        int nowPage = list.getPageable().getPageNumber() + 1;
-//        int startPage = Math.max(nowPage - 4, 1);
-//        int endPage = Math.min(nowPage + 5, list.getTotalPages());
-//
-//        model.addAttribute("list", list);
-//        model.addAttribute("nowPage", nowPage);
-//        model.addAttribute("startPage", startPage);
-//        model.addAttribute("endPage", endPage);
-//
-//        return "boardList";
-//    }
+
+
 }

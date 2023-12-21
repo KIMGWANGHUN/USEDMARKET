@@ -92,7 +92,12 @@
     <p class="USEDMARKET" sec:authorize="isAnonymous()">USEDMARKET</p>
     <form method="post" action="/login">
         <div class="formContainer">
-
+            <li sec:authorize="isAuthenticated()" style="list-style:none;">
+                <p>안녕하세요<a th:href="@{/mypageView}"><span sec:authentication="name"></span></a>님</p>
+            </li>
+            <li sec:authorize="isAuthenticated()" style="list-style:none">
+                <a th:href="@{/board/logout}">로그아웃</a>
+            </li>
             <div class="formClass">
                 <li sec:authorize="isAnonymous()" style="list-style:none; margin-bottom:10px">
                     이메일 : <input type="text" name="email" class="email">

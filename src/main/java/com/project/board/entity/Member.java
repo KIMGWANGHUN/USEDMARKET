@@ -24,6 +24,7 @@ public class Member   {
     private String phone;
     private String nickname;
     private String address;
+    private String detailAddress;
 
     public static Member createMember(UserDto uDto, PasswordEncoder passwordEncoder) {
         Member member = new Member();
@@ -34,6 +35,7 @@ public class Member   {
         member.setPhone(uDto.getPhone());
         member.setNickname(uDto.getNickname());
         member.setAddress(uDto.getAddress());
+        member.setDetailAddress(uDto.getDetailAddress());
         return member;
     }
 
@@ -46,6 +48,7 @@ public class Member   {
         member.setPhone(uDto.getPhone());
         member.setNickname(uDto.getNickname());
         member.setAddress(uDto.getAddress());
+        member.setDetailAddress(uDto.getDetailAddress());
         return member;
     }
 

@@ -13,5 +13,5 @@ public class UserDto {
     private String phone;
     private String nickname;
     private String address;
-
+    private String detailAddress;
 }
