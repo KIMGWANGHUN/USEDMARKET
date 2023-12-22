@@ -78,7 +78,7 @@ public class UserController {
     @ResponseBody
     String mailConfirm(@RequestParam("email") String email) throws Exception {
         code = registerMail.sendSimpleMessage(email);
-        System.out.println("code" + code);
+        System.out.println("code = " + code);
         return code;
     }
 
