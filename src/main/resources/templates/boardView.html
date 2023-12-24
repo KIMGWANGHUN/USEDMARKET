@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 페이지</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <link th:href="@{/css/board/boardView.css}" rel="stylesheet"/>
+    <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=eced3635ce3c2bfd81850ce7f24b0e8c"></script>
+    <script src="/js/board/kakaoMap.js"></script>
 </head>
-
-<style>
-    div {
-        margin : 0 auto;
-        margin-top : 40px;
-        width : 800px;
-    }
-</style>
 
 <body>
 <div>
@@ -19,19 +17,30 @@
 
     <hr>
 
-    작성자 : <span th:text="${member.nickname}"></span><br/>
-    카테고리 : <span th:text="${board.bCategory}"></span><br/>
-    가격 : <span th:text="${board.bPrice}"></span><br/>
-    거래장소 : <span th:text="${board.bAddress}"></span><br/>
-    거래장소 상세설명 : <span th:text="${board.bDetailAddress}"></span><br/>
-    작성일 : <span th:text="${board.bDate}"></span><br/>
-    조회수 : <span th:text="${board.bViews}"></span><br/>
+    😃판매자명 : <span th:text="${member.nickname}"></span><br/>
+    🛒카테고리 : <span th:text="${board.bCategory}"></span><br/>
+    🧧판매가격 : <span th:text="${board.bPrice}"></span><br/>
+    📆작성날짜 : <span th:text="${board.bDate}"></span><br/>
+    🤿조회숫자 : <span th:text="${board.bViews}"></span><br/>
+    💶거래장소 : <span th:text="${board.bAddress}"></span>
+                <span th:text="${board.bDetailAddress}"></span><br/>
 
+    <!--카카오지도-->
+    <div id="map" style="width:500px;height:400px;"></div>
+    <script>
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+        // 지도를 표시할 div와  지도 옵션으로  지도를 생성합니다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+    </script>
     <hr>
 
     <p th:text="${board.bContent}"></p>
     <img th:src="${board.filePath}" alt="no image">
-
     <hr>
 
     <a th:href="@{${board.filePath}}">사진보기</a>

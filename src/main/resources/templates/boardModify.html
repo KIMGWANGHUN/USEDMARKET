@@ -4,68 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>글작성</title>
+    <link th:href="@{/css/board/boardModify.css}" rel="stylesheet" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"/></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="/js/board/findAddress.js"></script>
 </head>
-
-<style>
-    h1 {
-        margin-top : 40px;
-        text-align : center;
-    }
-    .writePage {
-        width : 500px;
-        margin : 0 auto;
-        margin-top : 40px;
-        font-size : 20px;
-    }
-    .nickname, .title, textarea  {
-        width : 100%;
-    }
-    .address {
-        width : 47%;
-    }
-    .detailAddress {
-        width : 47%;
-    }
-    textarea {
-        margin-top : 5px;
-        height : 500px;
-    }
-    button {
-        margin-top : 5px;
-    }
-    .addressSearch {
-        border : 1px solid;
-        border-radius : 3px;
-        cursor : pointer;
-        margin-left : -45px;
-    }
-    .PriceAndCategoryDiv, .AddressAndDetailAddressDiv{
-        display : flex;
-        width : 100%;
-    }
-    .priceDiv, .categoryDiv, .AddressDiv, .DetailAddressDiv {
-        width : 50%;
-    }
-    .price, .address {
-        width : 95%;
-    }
-    .category {
-        width : 103%;
-        height : 27px;
-    }
-     .detailAddress {
-        width : 100%;
-    }
-    input, select {
-        height : 25px;
-        border-width : 0 0 1px;
-    }
-    input:hover {
-        background-color : GhostWhite;
-    }
-
-</style>
-
 <body>
 <!--제목-->
 <H1>판매글 작성</H1>
@@ -118,26 +61,5 @@
         <button type="button" th:onclick="|location.href='@{/board/list}'|">취소</button>
     </form>
 </div>
-
-<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.min.js"/>
-</script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script>
-    function findAddress() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-            var addr = '';
-            if (data.userSelectedType === 'R') {
-                addr = data.roadAddress;
-            } else {
-                addr = data.jibunAddress;
-            }
-
-            $("#addre").val(addr);
-            }
-        }).open();
-    }
-</script>
-
 </body>
 </html>
