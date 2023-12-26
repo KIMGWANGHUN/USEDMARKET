@@ -17,14 +17,19 @@
 
     <hr>
 
+    <img th:src="${board.filePath}" alt="no image"><br>
     😃판매자명 : <span th:text="${member.nickname}"></span><br/>
     🛒카테고리 : <span th:text="${board.bCategory}"></span><br/>
     🧧판매가격 : <span th:text="${board.bPrice}"></span><br/>
     📆작성날짜 : <span th:text="${board.bDate}"></span><br/>
     🤿조회숫자 : <span th:text="${board.bViews}"></span><br/>
-    💶거래장소 : <span th:text="${board.bAddress}"></span>
-                <span th:text="${board.bDetailAddress}"></span><br/>
 
+    <hr>
+    <p th:text="${board.bContent}"></p>
+    <hr>
+
+    💶거래장소 : <span th:text="${board.bAddress}"></span>
+    <span th:text="${board.bDetailAddress}"></span><br/>
     <!--카카오지도-->
     <div id="map" style="width:500px;height:400px;"></div>
     <script>
@@ -39,10 +44,13 @@
     </script>
     <hr>
 
-    <p th:text="${board.bContent}"></p>
-    <img th:src="${board.filePath}" alt="no image">
-    <hr>
+    <form class="commentForm">
+        <span class="commentNickname" name="nickname" th:value="${member.nickname}" readonly/><br>
+        <input class="commentContent">
+        <button class="commentBtn">댓글작성</button>
+    </form>
 
+    <hr></hr>
     <a th:href="@{${board.filePath}}">사진보기</a>
     <a th:href="@{/board/delete(id=${board.bId})}">글삭제</a>
     <a th:href="@{/board/modify/{id}(id=${board.bId})}">글수정</a>
