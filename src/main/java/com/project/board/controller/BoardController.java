@@ -18,6 +18,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +30,7 @@ import java.awt.font.MultipleMaster;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -66,14 +68,29 @@ public class BoardController {
     //게시판 리스트
     @GetMapping("/board/list")
     public String boardList(Model model, @PageableDefault(page = 0, size = 5, sort = "bId", direction = Sort.Direction.DESC) Pageable pageable,
-                            String searchKeyword) {
+                            String searchKeyword, Board board) {
 
         Page<Board> list = null;
 
-        if(searchKeyword == null) {
+        //검색없이 리스트를 보여줄때
+        if (searchKeyword == null && StringUtils.isEmpty(board.getBCategory())) {
             list = boardService.boardList(pageable);
+
+        //전체검색인 경우
+        } else if (StringUtils.isEmpty(board.getBCategory())) {
+
+            list = userService.boardSearchList(searchKeyword, pageable);
+
+        //카테고리를 정하고 검색한 경우
         } else {
-            list = userService.boardSearchList(searchKeyword,pageable);
+            list = userService.boardSearchList(searchKeyword, pageable);
+
+            List<Board> searchResultContent = list.getContent();
+
+            for (Board searchResultBoard : searchResultContent) {
+                if (searchResultBoard.getBCategory().equals(board.getBCategory())) {
+                }
+            }
         }
 
         int nowPage = list.getPageable().getPageNumber() + 1;

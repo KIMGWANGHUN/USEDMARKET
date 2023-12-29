@@ -76,6 +76,7 @@ public class UserService implements UserDetailsService {
        return findMember;
     }
 
+    //판매글 검색
     public Page<Board> boardSearchList(String searchKeyword, Pageable pageable) {
 
         return boardRepository.findBybTitleContaining(searchKeyword, pageable);
