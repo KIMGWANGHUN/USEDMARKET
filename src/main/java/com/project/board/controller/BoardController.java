@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.aspectj.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -76,21 +77,25 @@ public class BoardController {
         if (searchKeyword == null && StringUtils.isEmpty(board.getBCategory())) {
             list = boardService.boardList(pageable);
 
-        //전체검색인 경우
+            //전체검색인 경우
         } else if (StringUtils.isEmpty(board.getBCategory())) {
 
             list = userService.boardSearchList(searchKeyword, pageable);
 
-        //카테고리를 정하고 검색한 경우
+            //카테고리를 정하고 검색한 경우
         } else {
+            // 카테고리를 정하고 검색한 경우
             list = userService.boardSearchList(searchKeyword, pageable);
 
-            List<Board> searchResultContent = list.getContent();
+            List<Board> filteredList = new ArrayList<>();
 
-            for (Board searchResultBoard : searchResultContent) {
+            for (Board searchResultBoard : list.getContent()) {
                 if (searchResultBoard.getBCategory().equals(board.getBCategory())) {
+                    filteredList.add(searchResultBoard);
                 }
             }
+
+            list = new PageImpl<>(filteredList, pageable, filteredList.size());
         }
 
         int nowPage = list.getPageable().getPageNumber() + 1;
