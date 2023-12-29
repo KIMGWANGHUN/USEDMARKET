@@ -22,6 +22,35 @@
 </div>
 <h1>판매게시판</h1>
 
+<!--검색-->
+
+<div class="findClass">
+    <form class="findForm" th:action="@{/board/list}" method="get">
+        <div class="categoryDiv">
+            <select class="category" name="bCategory">
+                <option value="" disabled selected>카테고리</option>
+                <option>디지털기기</option>
+                <option>가구/인테리어</option>
+                <option>유아동</option>
+                <option>의류</option>
+                <option>생활가전</option>
+                <option>생활/주방</option>
+                <option>식품</option>
+                <option>스포츠/레저</option>
+                <option>취미/게임</option>
+                <option>뷰티/미용</option>
+                <option>식물</option>
+                <option>반려동물용품</option>
+                <option>티켓/도서</option>
+                <option>기타</option>
+            </select>
+        </div>
+
+        <input class="findInput" type="text" name="searchKeyword">
+        <button class="findBtn" type="submit">검색</button>
+    </form>
+</div><br><br>
+
 <!--게시판-->
 <div class="list">
     <table>
@@ -63,11 +92,6 @@
             <strong class="pageStrong" th:if="${page == nowPage}" th:text="${page}"></strong>
         </th:block>
 
-        <!--검색-->
-        <form class="findForm" th:action="@{/board/list}" method="get">
-            <input class="findInput" type="text" name="searchKeyword">
-            <button class="findBtn" type="submit">검색</button>
-        </form>
     </div>
 </div>
 </body>

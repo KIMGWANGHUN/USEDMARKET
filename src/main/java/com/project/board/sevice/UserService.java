@@ -66,16 +66,17 @@ public class UserService implements UserDetailsService {
         if(member.getPassword().isEmpty()) {
             member.setPassword(oriMember.getPassword());
         } else {
-        userRepository.save(member);
+            userRepository.save(member);
         }
     }
 
     //이메일 찾기
     public Member findEmail(String name, String phone) {
         Member findMember = userRepository.findByNameAndPhone(name,phone);
-       return findMember;
+        return findMember;
     }
 
+    //판매글 검색
     public Page<Board> boardSearchList(String searchKeyword, Pageable pageable) {
 
         return boardRepository.findBybTitleContaining(searchKeyword, pageable);

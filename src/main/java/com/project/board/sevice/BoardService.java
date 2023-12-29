@@ -1,14 +1,21 @@
 package com.project.board.sevice;
 
 import com.project.board.entity.Board;
+import com.project.board.entity.Member;
 import com.project.board.repository.BoardRepository;
+import com.project.board.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -65,4 +72,5 @@ public class BoardService {
     public void boardDelete(Integer id){
         boardRepository.deleteById(id);
     }
+
 }
